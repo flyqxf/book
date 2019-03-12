@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 登录action -->
+    <package name="diary" extends="gsp-struts-default" namespace="/diary">
+        <action name="diary" class="com.yuanneng.book.diary.action.DiaryAction" >
+            <result name="success">
+                <param name="location">/pages/diary.jsp</param>
+            </result>
+        </action>
+        <action name="perCalendar" class="com.yuanneng.book.diary.action.PreCalendarAction" >
+            <result name="success">
+                <param name="location">/pages/diary.jsp</param>
+            </result>
+        </action>
+        <action name="nextCalendar" class="com.yuanneng.book.diary.action.NextCalendarAction" >
+            <result name="success">
+                <param name="location">/pages/diary.jsp</param>
+            </result>
+        </action>
+        <action name="showDiary" class="com.yuanneng.book.diary.action.InsertDiaryShowAction" >
+            <result name="success">
+                <param name="location">/pages/diary.jsp</param>
+            </result>
+        </action>
+    </package>
+       <!-- 异步请求 -->
+       <package name="diaryJ" extends="gsp-json-default" namespace="/diaryJ">
+    <action name="haveDiary" class="com.yuanneng.book.diary.action.HaveDiaryAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resLst</param>
+            </result>
+        </action>
+    <action name="insertDiary" class="com.yuanneng.book.diary.action.InsertDiaryAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+    <action name="updateDiary" class="com.yuanneng.book.diary.action.UpdateDiaryAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+    <action name="delDiary" class="com.yuanneng.book.diary.action.DeleteDiaryAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+   </package> 
+  
+</struts>

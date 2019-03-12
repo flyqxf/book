@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.manage.login.dao.IAdminUserDisplayDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getUserBeans" parameterType="com.yuanneng.book.manage.login.entity.AdminUserBean" resultType="com.yuanneng.book.manage.login.entity.AdminUserBean">
+    SELECT
+      user.userId as userId
+     ,user.userPassword as userPassword
+    FROM
+      ${schema}.t_manage_user user
+    
+    WHERE
+
+      user.userId = #{userId}
+  </select>
+    <update id="updatePwd" parameterType="com.yuanneng.book.manage.login.entity.AdminUserBean" >
+    update 
+        t_manage_user user
+    set
+        userPassword = #{userPassword}
+    where
+        userId = #{userId}
+  </update>
+</mapper>

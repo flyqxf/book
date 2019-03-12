@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <package name="pay" extends="gsp-struts-default" namespace="/pay">
+        <action name="payAction" class="com.yuanneng.book.manage.pay.action.PayAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifuList.jsp</param>
+            </result>
+        </action>
+        <action name="payZhijieAction" class="com.yuanneng.book.manage.pay.action.PayZhijieAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifuList_zhijie.jsp</param>
+            </result>
+        </action>
+        <action name="payJianjieAction" class="com.yuanneng.book.manage.pay.action.PayJianjieAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifuList_jianjie.jsp</param>
+            </result>
+        </action>
+        <action name="payPageLinks" class="com.yuanneng.book.manage.pay.action.PayPageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifuList_zhijie.jsp</param>
+            </result>
+        </action>
+        <action name="payPageLinks_jianjie" class="com.yuanneng.book.manage.pay.action.PayPageLinkJianjieAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifuList_jianjie.jsp</param>
+            </result>
+        </action>
+        <action name="exportExcel" class="com.yuanneng.book.manage.pay.action.PayExportExcelAction" method="execute">
+            <result name="success" type="stream">
+                <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+    </package>
+    
+</struts>

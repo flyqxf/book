@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.register.dao.IRegisterDao">
+   <!-- ************************用户sql******************************* -->
+   
+  <insert id="insertUser" parameterType="com.yuanneng.book.sysmanage.entity.UserBean">
+        INSERT INTO ${schema}.t_user (
+            userId
+            ,userName
+            ,userPassword
+            ,mail
+            ,mobile
+            ,code
+            ,register_code
+            ,id_zhifubao
+            ,id_weixin
+            ,receivables_flg
+            ,money
+            ,user_flg
+            ,status
+            ,del_flg
+            ,tuijianRenshu
+            ,orderId
+            ,register_time
+            ,updateTime
+
+         ) VALUES (
+            #{userId}
+            ,#{userName}
+            ,#{userPassword}
+            ,#{mail}
+            ,#{mobile}
+            ,#{code}
+            ,#{register_code}
+            ,#{id_zhifubao}
+            ,#{id_weixin}
+            ,#{receivables_flg}
+            ,#{money}
+            ,1
+            ,0
+            ,#{del_flg}
+            ,0
+            ,#{orderId}
+            ,SYSDATE()
+            ,SYSDATE()
+        )
+    </insert>
+    <insert id="insertUserTemp" parameterType="com.yuanneng.book.sysmanage.entity.UserBean">
+        INSERT INTO ${schema}.t_user_temp (
+            no
+            ,userId
+            ,userName
+            ,userPassword
+            ,mail
+            ,mobile
+            ,code
+            ,register_code
+            ,id_zhifubao
+            ,id_weixin
+            ,receivables_flg
+            ,money
+            ,user_flg
+            ,status
+            ,del_flg
+            ,orderId
+            ,register_time
+            ,updateTime
+
+         ) VALUES (
+            #{no}
+            ,#{userId}
+            ,#{userName}
+            ,#{userPassword}
+            ,#{mail}
+            ,#{mobile}
+            ,#{code}
+            ,#{register_code}
+            ,#{id_zhifubao}
+            ,#{id_weixin}
+            ,#{receivables_flg}
+            ,#{money}
+            ,1
+            ,0
+            ,#{del_flg}
+            ,#{orderId}
+            ,SYSDATE()
+            ,SYSDATE()
+        )
+    </insert>
+    <update id="updateTuijianRenshu" parameterType="list">
+     update t_user
+     set 
+        tuijianRenshu = tuijianRenshu+1
+       
+     where
+        userId in
+       <foreach collection="userLst" index="index" item="item" open="(" separator="," close=")"> 
+            #{item} 
+        </foreach> 
+     
+     </update>
+    <select id="getTuijianUser"  parameterType="string"  resultType="com.yuanneng.book.sysmanage.entity.UserBean">
+    SELECT
+        userId
+        ,register_code
+    FROM
+      t_user
+    where
+        code=#{code}
+  </select>
+    <select id="selectUserByOutTradeNo"  resultType="com.yuanneng.book.sysmanage.entity.UserBean" parameterType="com.yuanneng.book.sysmanage.entity.UserBean">
+    SELECT
+        userId
+            ,userName
+            ,userPassword
+            ,mail
+            ,mobile
+            ,code
+            ,register_code
+            ,id_zhifubao
+            ,id_weixin
+            ,receivables_flg
+            ,money
+            ,user_flg
+            ,status
+            ,del_flg
+            ,orderId
+            ,register_time
+            ,updateTime
+    FROM
+      t_user_temp t1
+    where
+        orderId = #{orderId}
+    </select>
+    <update id="updateUserSts" parameterType="com.yuanneng.book.sysmanage.entity.UserBean">
+     update t_user
+     set 
+        del_flg = #{del_flg}
+       
+     where
+        orderId = #{orderId}
+     
+     </update>
+     <delete id="deleteUserByOutTradeNo" parameterType="com.yuanneng.book.sysmanage.entity.UserBean">
+     delete from t_user_temp
+
+     where
+        orderId = #{orderId}
+     
+     </delete>
+    <insert id="insertAchievement" parameterType="com.yuanneng.book.prerson.entity.AchievementBean">
+        INSERT INTO ${schema}.t_achievement (
+            id
+            ,userId
+            ,registerUserId
+            ,registerUserId_jianjie
+            ,pay_status
+            ,pay
+            ,flg
+            ,qishu
+         ) VALUES (
+            #{id}
+            ,#{userId}
+            ,#{registerUserId}
+            ,#{registerUserIdJianjie}
+            ,0
+            ,#{pay}
+            ,#{flg}
+            ,#{qishu}
+        )
+    </insert>
+    <select id="getUserId"  resultType="string">
+    SELECT
+        t1.userId as userId
+    FROM
+      t_user t1
+    where
+        t1.del_flg != 1
+    and
+        t1.code = #{code}
+    </select>
+    <select id="getRegisterCode"  resultType="string">
+    SELECT
+        t1.register_code as registerCode
+    FROM
+      t_user t1
+    where
+        t1.del_flg != 1
+    and
+        t1.userId = #{userId}
+    </select>
+    <select id="getUserCnt"  resultType="int">
+    SELECT
+        count(1)
+    FROM
+      t_user
+    where
+
+        userId = #{userId}
+    </select>
+    <select id="getMobileCnt"  resultType="int">
+    SELECT
+        count(1)
+    FROM
+      t_user
+    where
+        del_flg != 1
+    and
+        mobile = #{mobile}
+    </select>
+    <select id="getMailCnt"  resultType="int">
+    SELECT
+        count(1)
+    FROM
+      t_user
+    where
+        del_flg != 1
+    and
+        mail = #{mail}
+    </select>
+    <select id="getPay_zhijie_cnt"  resultType="com.yuanneng.book.manage.pay.entity.PayBean">
+    SELECT
+        id as id,
+        personSum as personSum,
+        pay as pay,
+        unpaid as unpaid
+    FROM
+      t_manage_pay_zhijie
+    where
+    userId = #{userId}
+    <![CDATA[
+    and
+        beginTime <= DATE_FORMAT(SYSDATE(),'%Y-%m-%d')
+    and
+        endTime >= DATE_FORMAT(SYSDATE(),'%Y-%m-%d')
+    ]]>
+    </select>
+    <select id="getPay_jianjie_cnt"  resultType="com.yuanneng.book.manage.pay.entity.PayBean">
+    SELECT
+        id as id,
+        personSum as personSum,
+        pay as pay,
+        unpaid as unpaid
+    FROM
+      t_manage_pay_jianjie
+    where
+     userId = #{userId}
+    <![CDATA[
+    and
+        beginTime <= DATE_FORMAT(SYSDATE(),'%Y-%m-%d')
+    and
+        endTime >= DATE_FORMAT(SYSDATE(),'%Y-%m-%d')
+    ]]>
+    </select>
+     <update id="updatePay_zhijie" parameterType="com.yuanneng.book.manage.pay.entity.PayBean">
+     update t_manage_pay_zhijie
+     set 
+        personSum = #{personSum},
+        pay = #{pay},
+        unpaid=#{unpaid}
+     where
+        id = #{id}
+     
+     </update>
+     <update id="updatePay_jianjie" parameterType="com.yuanneng.book.manage.pay.entity.PayBean">
+     update t_manage_pay_jianjie
+     set 
+        personSum = #{personSum},
+        pay = #{pay},
+        unpaid=#{unpaid}
+     where
+        id = #{id}
+     
+     </update>
+    <insert id="insertPay_zhijie" parameterType="com.yuanneng.book.manage.pay.entity.PayBean">
+        INSERT INTO t_manage_pay_zhijie (
+            id
+            ,userId
+            ,personSum
+            ,pay
+            ,paid
+            ,unpaid
+            ,qishu
+            ,beginTime
+            ,endTime
+         ) VALUES (
+            #{id},
+            #{userId},
+            #{personSum},
+            #{pay},
+            #{paid},
+            #{unpaid},
+            #{qishu},
+            #{beginTime},
+            #{endTime}
+
+        )
+    </insert>
+    <insert id="insertPay_jianjie" parameterType="com.yuanneng.book.manage.pay.entity.PayBean">
+        INSERT INTO t_manage_pay_jianjie (
+            id
+            ,userId
+            ,personSum
+            ,pay
+            ,paid
+            ,unpaid
+            ,qishu
+            ,beginTime
+            ,endTime
+         ) VALUES (
+            #{id},
+            #{userId},
+            #{personSum},
+            #{pay},
+            #{paid},
+            #{unpaid},
+            #{qishu},
+            #{beginTime},
+            #{endTime}
+
+        )
+    </insert>
+    <select id="getMaxQishu_zhijie" resultType="int">
+    SELECT
+        if( max(qishu) is null,0,max(qishu)) 
+    FROM
+      t_manage_pay_zhijie
+    where
+     userId = #{userId}
+    
+    </select>
+    <select id="getMaxQishu_jianjie" resultType="int">
+    SELECT
+        if( max(qishu) is null,0,max(qishu)) 
+    FROM
+      t_manage_pay_jianjie
+    where
+     userId = #{userId}
+    
+    </select>
+    <update id="changeSaler" parameterType="com.yuanneng.book.sysmanage.entity.UserBean">
+     update t_user
+     set 
+        code = #{code},
+        id_zhifubao = #{id_zhifubao},
+        id_weixin=#{id_weixin},
+        receivables_flg = #{receivables_flg},
+        user_flg=#{user_flg},
+        bank=#{bank},
+        bank_card_number=#{bank_card_number},
+        bank_card_name=#{bank_card_name}
+     where
+        userId = #{userId}
+     
+     </update>
+     <select id="getUserInfo" resultType="com.yuanneng.book.sysmanage.entity.UserBean">
+    SELECT
+        user_flg,
+        mobile
+    FROM
+      t_user
+    where
+     userId = #{userId}
+    
+    </select>
+</mapper>

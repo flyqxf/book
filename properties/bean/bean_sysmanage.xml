@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+  <!-- sysmanage的Dao定义 -->
+  <bean id="iuserDisplayDao" class="org.mybatis.spring.mapper.MapperFactoryBean" scope="singleton">
+    <property name="mapperInterface" value="com.yuanneng.book.sysmanage.dao.IUserDisplayDao" />
+    <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+  </bean>
+
+ <bean id="_userBean" class="com.yuanneng.book.sysmanage.entity.UserBean" scope="prototype" />
+ <bean id="_userEventLogBean" class="com.yuanneng.book.sysmanage.entity.UserEventLogBean" scope="prototype" />
+  
+  <!-- sysmanage的SERVICE定义 -->
+  <bean id="userLoginService" class="com.yuanneng.book.sysmanage.service.UserLoginService" scope="singleton" />
+  <bean id="userEventLogService" class="com.yuanneng.book.sysmanage.service.UserEventLogService" scope="singleton" />
+  
+  
+
+ 
+</beans>

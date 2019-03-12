@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 登录action -->
+    <package name="help" extends="gsp-struts-default" namespace="/help">
+        <action name="help" class="com.yuanneng.book.help.action.HelpAction" >
+            <result name="success">
+                <param name="location">/pages/help.jsp</param>
+            </result>
+        </action>
+        <action name="tab2Help" class="com.yuanneng.book.help.action.Tab2HelpAction" >
+            <result name="success">
+                <param name="location">/pages/help1.jsp</param>
+            </result>
+        </action>
+        <action name="helpAdd" class="com.yuanneng.book.help.action.HelpAddAction" >
+            <result name="success">
+                <param name="location">/pages/help.jsp</param>
+            </result>
+        </action>
+
+        <action name="helpPageLinks" class="com.yuanneng.book.help.action.HelpPageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/help1.jsp</param>
+            </result>
+        </action>
+        <action name="helpDetail" class="com.yuanneng.book.help.action.HelpDetailAction" >
+            <result name="success">
+                <param name="location">/pages/help.jsp</param>
+            </result>
+        </action>
+        
+        
+    </package>
+        <!-- 异步请求 -->
+  <package name="helpJ" extends="gsp-json-default" namespace="/helpJ">
+    <action name="helpAdd" class="com.yuanneng.book.help.action.HelpAddAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+    <action name="helpEdit" class="com.yuanneng.book.help.action.HelpEditAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+        <action name="delHelp" class="com.yuanneng.book.help.action.DeleteHelpAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+        <action name="helpDetail" class="com.yuanneng.book.help.action.HelpDetailAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">helpBean</param>
+            </result>
+        </action>
+        
+        
+   </package> 
+  
+</struts>

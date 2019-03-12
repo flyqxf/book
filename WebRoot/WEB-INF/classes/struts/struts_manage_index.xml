@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 登录action -->
+    <package name="index" extends="gsp-struts-default" namespace="/index">
+        <action name="indexAction" class="com.yuanneng.book.manage.index.action.IndexAction" >
+            <result name="success">
+                <param name="location">/pages/admin/index.jsp</param>
+            </result>
+        </action>
+        
+    </package>
+       
+</struts>

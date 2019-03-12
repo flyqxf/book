@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 修改上传的最大文件大小：10MB -->
+    <constant name="struts.multipart.maxSize" value="104857600"/>
+    <!-- 登录action -->
+    <package name="register" extends="gsp-struts-default" namespace="/">
+
+        <!-- 注册Aciton -->
+        <action name="register" class="com.yuanneng.book.register.action.RegisterAction" method="execute">
+            <result name="success">
+                <param name="location">/pages/register.jsp</param>
+            </result>
+        </action>
+        <action name="agree" class="com.yuanneng.book.register.action.AgreeAction" method="execute">
+            <result name="success">
+                <param name="location">/pages/register1.jsp</param>
+            </result>
+        </action>
+        <!-- 注册Aciton -->
+        <action name="registerPay" class="com.yuanneng.book.register.action.RegisterPayAction" method="execute">
+            <result name="success">
+                <param name="location">/pages/pay.jsp</param>
+            </result>
+            <result name="input">
+                <param name="location">/pages/register1.jsp</param>
+            </result>
+            
+        </action>
+        <action name="backToRegister" class="com.yuanneng.book.register.action.BackToRegisterAction" method="execute">
+            <result name="success">
+                <param name="location">/pages/register1.jsp</param>
+            </result>
+            
+        </action>
+        <action name="registerPayConfirm" class="com.yuanneng.book.register.action.RegisterPayConfirmAction" method="execute">
+            <result name="success">
+                <!-- <param name="location">/pages/pay.jsp</param> -->
+                <param name="location">/pages/registerResult.jsp</param>
+            </result>
+            <result name="input">
+                <param name="location">/pages/pay.jsp</param>
+            </result>
+        </action>
+        
+        <action name="alipayAction" class="com.yuanneng.book.register.action.AliPayAction" method="execute">
+            <result name="success">
+                <param name="location">/pages/aliPay.jsp</param>
+            </result>
+            <result name="input">
+                <param name="location">/pages/pay.jsp</param>
+            </result>
+        </action>
+        <action name="weChatPayAction" class="com.yuanneng.book.register.action.WeChatPayAction" method="execute">
+            <result name="success">
+                <param name="location">/pages/weChatPay.jsp</param>
+            </result>
+            <result name="input">
+                <param name="location">/pages/pay.jsp</param>
+            </result>
+        </action>
+        <action name="weChatPayResultActon" class="com.yuanneng.book.register.action.WeChatPayResultActon" method="execute">
+            <result name="success">
+                <!-- <param name="location">/pages/pay.jsp</param> -->
+                <param name="location">/pages/registerResult.jsp</param>
+            </result>
+        </action>
+        <action name="weChatPayStatusConfirmActon" class="com.yuanneng.book.register.action.WeChatPayStatusConfirmActon" method="execute">
+            <result name="success">
+                <!-- <param name="location">/pages/pay.jsp</param> -->
+                <param name="location">/pages/registerResult.jsp</param>
+            </result>
+            <result name="input">
+                <param name="location">/pages/pay.jsp</param>
+            </result>
+        </action>
+        <action name="changeSalerTopic" class="com.yuanneng.book.register.action.ChangeSalerTopicAction" method="execute">
+            <result name="success">
+                <param name="location">/pages/changeSalerTopic.jsp</param>
+            </result>
+        </action>
+        <action name="changeSaler" class="com.yuanneng.book.register.action.ChangeSalerAction" method="execute">
+            <result name="success">
+                <param name="location">/pages/changeSaler.jsp</param>
+            </result>
+        </action>
+        <action name="changeSalerConfirm" class="com.yuanneng.book.register.action.ChangeSalerConfirmAction" method="execute">
+            <result name="success">
+                <param name="location">/pages/changeSalerResult.jsp</param>
+            </result>
+             <result name="input">
+                <param name="location">/pages/changeSaler.jsp</param>
+            </result>
+        </action>
+    </package>
+     <package name="registerJ" extends="gsp-json-default" namespace="/registerJ">
+    <action name="checkChangeSalerAction" class="com.yuanneng.book.register.action.CheckChangeSalerAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+        <action name="weChatPayStatusConfirmActon" class="com.yuanneng.book.register.action.WeChatPayStatusConfirmActon" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+        <action name="weChatPayStatusGetActon" class="com.yuanneng.book.register.action.WeChatPayStatusGetActon" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+            
+        </action>
+    
+   </package>  
+</struts>

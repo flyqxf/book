@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+    <!-- 动态代理设置 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+   
+    <!-- 配置message文件 -->
+    <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="fallbackToSystemLocale">
+            <value>false</value>
+        </property>
+        <property name="useCodeAsDefaultMessage">
+            <value>true</value>
+        </property>
+        <property name="basenames">
+            <list>
+                <value>classpath:messages/book-messages
+                </value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 配置message助手 -->
+    <bean id="messageHelper" class="com.yuanneng.book.common.utils.MessageHelper" />
+
+    <!--配置数据源属性文件 -->
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:mybatis/mysql.properties</value>
+        </property>
+    </bean>
+
+    <!--配置数据源 -->
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>${jdbc.driverClassName}</value>
+        </property>
+        <property name="url">
+            <value>${jdbc.url}</value>
+        </property>
+        <property name="username">
+            <value>${jdbc.userName}</value>
+        </property>
+        <property name="password">
+            <value>${jdbc.password}</value>
+        </property>
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis/mybatis_config.xml" />
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 扫描CLASS时的包指定 -->
+    <context:component-scan base-package="com.yuanneng.book">
+        <context:include-filter type="annotation"
+            expression="org.aspectj.lang.annotation.Aspect" />
+    </context:component-scan>
+
+    <!-- 事务的控制 -->
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <tx:advice id="transactionInterceptor" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="doMain*" propagation="REQUIRED"
+                rollback-for="java.lang.Exception" />
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut id="actionBeans" expression="bean(*Action)" />
+        <aop:advisor pointcut-ref="actionBeans" advice-ref="transactionInterceptor" />
+    </aop:config>
+
+    <!-- 共通的bean定义 -->
+    <bean id="baseExceptionHandler" class="com.yuanneng.book.common.exception.BASEExceptionHandler"
+        scope="singleton" />
+    <bean id="urlNotFoundHandler" class="com.yuanneng.book.common.exception.UrlNotFoundHandler"
+        scope="singleton" />
+    <bean id="appUtil" class="com.yuanneng.book.common.utils.AppUtil"
+        scope="singleton" />
+    <bean id="pwActiveUtil" class="com.yuanneng.book.common.utils.PwActiveUtil"
+        scope="singleton" />
+        
+        
+    <!-- 配置bean文件 -->
+    <import resource="classpath:bean/bean_*.xml" />
+</beans>

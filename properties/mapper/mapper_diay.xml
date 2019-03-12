@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.diary.dao.IDiaryDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getHaveDiaryDayList" parameterType="com.yuanneng.book.diary.entity.DiaryBean"  resultType="com.yuanneng.book.diary.entity.DiaryBean">
+    SELECT
+       date_format(t.diaryTime, '%d') AS diaryTime,
+       t.title as title
+    FROM
+      t_diary t
+    where 
+        userId = #{userId}
+        <![CDATA[
+            and
+             DATE_FORMAT(t.diaryTime,'%Y-%m-%d') >= #{conditionDiaryTimeFrom}
+        ]]>
+          <![CDATA[
+            and
+                DATE_FORMAT(t.diaryTime,'%Y-%m-%d') <= #{conditionDiaryTimeTo}
+          ]]>
+
+    
+    order by t.diaryTime ASC
+  </select>
+   <select id="getHaveDiaryDayCnt" parameterType="com.yuanneng.book.diary.entity.DiaryBean"  resultType="int">
+    SELECT
+       count(1)
+    FROM
+      t_diary t
+    where 
+         userId = #{userId}
+        <![CDATA[
+            and
+             DATE_FORMAT(t.diaryTime,'%Y-%m-%d') = #{diaryTime}
+        ]]>
+          
+  </select>
+  <select id="getDiaryList" parameterType="com.yuanneng.book.diary.entity.DiaryBean"  resultType="com.yuanneng.book.diary.entity.DiaryBean">
+    SELECT
+       t.id as id
+            ,t.userId as userId 
+            ,t.title as title
+            ,t.diary  as diary
+            ,date_format(t.diaryTime, '%Y-%m-%d') AS diaryTime
+            , date_format(t.createTime, '%Y-%m-%d') AS createTime
+            ,date_format(t.updateTIme, '%Y-%m-%d') AS updateTIme
+    FROM
+      t_diary t
+    
+    order by diaryTime ASC
+  </select>
+  <insert id="insertDiary" parameterType="com.yuanneng.book.diary.entity.DiaryBean">
+        INSERT INTO ${schema}.t_diary (
+            id 
+            ,userId 
+            ,title 
+            ,diary 
+            ,diaryTime 
+            ,createTime 
+            ,updateTIme 
+
+         ) VALUES (
+            #{id}
+            ,#{userId}
+            ,#{title}
+            ,#{diary}
+            ,str_to_date(#{diaryTime}, '%Y-%m-%d')
+            ,SYSDATE()
+            ,SYSDATE()
+        )
+    </insert>
+    <update id="updateDiary" parameterType="com.yuanneng.book.diary.entity.DiaryBean">
+        update  ${schema}.t_diary 
+        set
+            title = #{title} 
+            ,diary =#{diary} 
+            ,updateTIme= SYSDATE()
+        where
+            id=#{id}
+    </update>
+    
+    <update id="deleteDiary" parameterType="string">
+        delete from t_diary 
+        where
+            id=#{id}
+    </update>
+</mapper>

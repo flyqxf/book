@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.successCase.dao.ISuccessCaseDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getSuccessCase"  resultType="com.yuanneng.book.successCase.entity.SuccessBeanBean">
+    SELECT
+        id
+,title
+,link
+,province
+,city
+,status
+,delFlg
+,createTime
+,createUser
+,confirmTIme
+,confirmUser
+,CONVERT(id,SIGNED) as idInt
+    FROM
+      t_success_case
+    order by idInt DESC
+  </select>
+   
+  
+</mapper>

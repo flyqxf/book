@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.bookScan.dao.IBookScanDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <!-- <select id="getBookDirectory" parameterType="string" resultType="com.yuanneng.book.bookScan.entity.BookDetailBean">
+    SELECT
+      id
+      ,bookId
+      ,chapter
+      ,part
+      ,content
+
+    FROM
+      t_book_detail
+    
+    WHERE
+      bookId = #{bookId}
+    order by id ASC
+  </select> -->
+   <select id="getBookDirectory" resultType="com.yuanneng.book.bookScan.entity.BookDetailBean">
+    SELECT
+      id
+      ,chapter
+      ,part
+      ,link
+      ,youkeFlg
+      ,CONVERT(sort,DECIMAL(20,10)) as sortD
+    FROM
+      t_jiaoxue
+    order by sortD
+  </select>
+   
+  
+</mapper>

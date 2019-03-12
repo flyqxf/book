@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.manage.advice.dao.IAdviceManagerDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getAdviceBean"  resultType="com.yuanneng.book.manage.advice.entity.AdviceManagerBean">
+    SELECT
+        id
+        ,adviceTitle
+        ,link
+        ,adviceType
+        ,CONVERT(id,SIGNED) as idInt
+      
+    FROM
+      t_advice
+    
+    order by idInt asc
+  </select>
+  <delete id="deleteAdviceBean" >
+      delete from 
+          t_advice
+      
+    </delete>
+    <insert id="insert" parameterType="com.yuanneng.book.manage.advice.entity.AdviceManagerBean">
+        INSERT INTO t_advice (
+            id
+            ,adviceTitle
+            ,link
+            ,adviceType
+            ,createTime
+            ,createUser
+         ) VALUES (
+            #{id}
+            ,#{adviceTitle}
+            ,#{link}
+            ,#{adviceType}
+            ,SYSDATE()
+            ,#{createUser}
+        )
+    </insert>
+</mapper>

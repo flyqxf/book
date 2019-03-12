@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+  <!-- 文件外.文件内配置键值对的属性 -->
+  <!-- <properties resource="config.properties"> <property name="name1" value="value1"/> 
+    </properties> -->
+
+  <!-- MyBatis设置 -->
+  <settings>
+    <setting name="cacheEnabled" value="true" />
+    <setting name="lazyLoadingEnabled" value="false" />
+    <setting name="aggressiveLazyLoading" value="true" />
+    <setting name="multipleResultSetsEnabled" value="true" />
+    <setting name="useColumnLabel" value="true" />
+    <setting name="useGeneratedKeys" value="false" />
+    <setting name="autoMappingBehavior" value="PARTIAL" />
+    <!-- <setting name="autoMappingUnknownColumnBehavior" value="NONE" /> -->
+    <setting name="defaultExecutorType" value="SIMPLE" />
+    <!-- 设置超时时间，它决定驱动等待数据库响应的秒数。 -->
+    <setting name="defaultStatementTimeout" value="15" />
+    <!-- <setting name="defaultFetchSize" value="1000" /> -->
+    <setting name="safeRowBoundsEnabled" value="false" />
+    <setting name="mapUnderscoreToCamelCase" value="false" />
+    <setting name="localCacheScope" value="SESSION" />
+    <setting name="jdbcTypeForNull" value="OTHER" />
+    <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+    <!-- <setting name="defaultScriptingLanguage" value="org.apache.ibatis.scripting.xmltags.XMLDynamicLanguageDriver" 
+      /> -->
+    <setting name="callSettersOnNulls" value="false" />
+    <!-- <setting name="logPrefix" value="" /> -->
+    <!-- <setting name="logImpl" value="LOG4J" /> -->
+    <!-- <setting name="proxyFactory" value="JAVASSIST" /> -->
+    <!-- <setting name="vfsImpl" value="" /> -->
+  </settings>
+ <typeAliases>
+      <typeAlias alias="_userBean" type="com.yuanneng.book.sysmanage.entity.UserBean"/>
+ </typeAliases>
+      
+ 
+  <!-- 类型处理 -->
+  <!-- 例子 <typeHandlers> <package name="org.mybatis.example"/> </typeHandlers> -->
+
+  <!-- 对象工厂 -->
+  <!-- 例子 <objectFactory type="org.mybatis.example.ExampleObjectFactory"> 
+    <property name="someProperty" value="100"/> </objectFactory> -->
+
+  <!-- 插件（plugins） -->
+  <!-- 例子 <plugins> <plugin interceptor="org.mybatis.example.ExamplePlugin"> 
+    <property name="someProperty" value="100"/> </plugin> </plugins> -->
+
+  <!--引用的SQL Mapper一览 -->
+  <mappers>
+    <mapper resource="mapper/mapper_common.xml" />
+    <mapper resource="mapper/mapper_sysmanage.xml" />
+    <mapper resource="mapper/mapper_book.xml" />
+    <mapper resource="mapper/mapper_advice.xml" />
+    <mapper resource="mapper/mapper_successCase.xml" />
+    <mapper resource="mapper/mapper_help.xml" />
+    <mapper resource="mapper/mapper_article.xml" />
+    <mapper resource="mapper/mapper_person.xml" />
+    <mapper resource="mapper/mapper_diay.xml" />
+    <mapper resource="mapper/mapper_manage_login.xml" />
+    <mapper resource="mapper/manage/mapper_index.xml" />
+    <mapper resource="mapper/manage/mapper_user.xml" />
+    <mapper resource="mapper/manage/mapper_systemInfo.xml" />
+    <mapper resource="mapper/manage/mapper_sale.xml" />
+    <mapper resource="mapper/manage/mapper_pay.xml" />
+    <mapper resource="mapper/manage/mapper_jiaoxue.xml" />
+    <mapper resource="mapper/manage/mapper_wenzhang.xml" />
+    <mapper resource="mapper/mapper_register.xml" />
+    <mapper resource="mapper/manage/mapper_advice.xml" />
+    <mapper resource="mapper/manage/mapper_success.xml" />
+
+ </mappers>
+</configuration>

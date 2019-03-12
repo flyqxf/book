@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 修改上传的最大文件大小：10MB -->
+    <constant name="struts.multipart.maxSize" value="104857600"/>
+    <!-- 登录action -->
+    <package name="bookScan" extends="gsp-struts-default" namespace="/bookScan">
+        <action name="bookScanAction" class="com.yuanneng.book.bookScan.action.BookScanAction" >
+            <result name="success">
+                <param name="location">/pages/main.jsp</param>
+            </result>
+        </action>
+        <action name="partAction" class="com.yuanneng.book.bookScan.action.PartAction" >
+            <result name="success">
+                <param name="location">/pages/book.jsp</param>
+            </result>
+        </action>
+        
+    </package>
+    <!-- 登录action -->
+    <package name="tourist" extends="gsp-struts-default" namespace="/tourist">
+        <action name="touristAction" class="com.yuanneng.book.bookScan.action.TouristAction" >
+            <result name="success">
+                <param name="location">/pages/touristmain.jsp</param>
+            </result>
+        </action>
+         <action name="partTouristAction" class="com.yuanneng.book.bookScan.action.PartTouristAction" >
+            <result name="success">
+                <param name="location">/pages/book.jsp</param>
+            </result>
+        </action>
+       
+        
+    </package>
+       <!-- 异步请求 -->
+  <package name="bookScanJ" extends="gsp-json-default" namespace="/bookScanJ">
+    <action name="partAction" class="com.yuanneng.book.bookScan.action.PartAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">partBean</param>
+            </result>
+        </action>
+   <action name="partTouristAction" class="com.yuanneng.book.bookScan.action.PartTouristAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">partBean</param>
+            </result>
+        </action>
+    
+   </package> 
+</struts>

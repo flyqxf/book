@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.manage.wenzhang.dao.IWenzhangDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getWenzhang"  resultType="com.yuanneng.book.manage.wenzhang.entity.WenzhangBean">
+    SELECT
+        t3.id as id
+        ,t3.title as title
+        ,t3.province_val as province_val
+        ,t3.province as province
+        ,t3.city_val as city_val
+        ,t3.city as city
+        ,t3.content as content
+        ,t3.answer as answer
+        ,t3.status as status
+        ,t3.delFlg as delFlg
+         ,DATE_FORMAT(t3.createTime,'%Y-%m-%d %H:%i:%s') as createTime
+            ,t3.createUser as createUser
+            ,DATE_FORMAT(t3.confirmTIme,'%Y-%m-%d %H:%i:%s') as confirmTIme
+        ,t3.confirmUser as confirmUser
+        ,t3.leibie as leibie
+      
+    FROM
+      (
+        select 
+            t1.id as id
+            ,t1.title as title
+            ,t1.province_val as province_val
+            ,t1.province as province
+            ,t1.city_val as city_val
+            ,t1.city as city
+            ,t1.content as content
+            ,t1.answer as answer
+            ,t1.status as status
+            ,t1.delFlg as delFlg
+            ,t1.createTime as createTime
+            ,t1.createUser as createUser
+            ,t1.confirmTIme as confirmTIme
+            ,t1.confirmUser as confirmUser
+            ,'1' as leibie
+
+        from
+            t_help t1
+        <where>
+            <if test="title != null and title != ''">
+                and t1.title like CONCAT('%', #{title},'%')
+            </if>
+            <if test="createTime_from != null and createTime_from != ''" >
+                <![CDATA[
+                    and
+        
+                    DATE_FORMAT(t1.createTime,'%Y-%m-%d') >= #{createTime_from}
+                ]]>
+            </if>
+            <if test="createTime_to != null and createTime_to != ''">
+        
+                <![CDATA[
+                    and
+                    DATE_FORMAT(t1.createTime,'%Y-%m-%d') <= #{createTime_to}
+                 ]]>
+            </if>
+           <if test="status != null and status != ''">
+                and t1.status = #{status}
+            </if>
+        </where>
+        
+        union all
+        
+        select 
+            t2.id as id
+            ,t2.title as title
+            ,t2.province_val as province_val
+            ,t2.province as province
+            ,t2.city_val as city_val
+            ,t2.city as city
+            ,t2.content as content
+            ,t2.answer as answer
+            ,t2.status as status
+            ,t2.delFlg as delFlg
+            ,t2.createTime as createTime
+            ,t2.createUser as createUser
+            ,t2.confirmTIme as confirmTIme
+            ,t2.confirmUser as confirmUser
+            ,'2' as leibie
+        from
+            t_article t2
+        <where>
+            <if test="title != null and title != ''">
+                and t2.title like CONCAT('%', #{title},'%')
+            </if>
+            <if test="createTime_from != null and createTime_from != ''" >
+                <![CDATA[
+                    and
+        
+                    DATE_FORMAT(t2.createTime,'%Y-%m-%d') >= #{createTime_from}
+                ]]>
+            </if>
+            <if test="createTime_to != null and createTime_to != ''">
+        
+                <![CDATA[
+                    and
+                    DATE_FORMAT(t2.createTime,'%Y-%m-%d') <= #{createTime_to}
+                 ]]>
+            </if>
+           <if test="status != null and status != ''">
+                and t2.status = #{status}
+            </if>
+        </where>
+      ) t3
+      <if test="leibie != null and leibie != ''">
+      where
+        t3.leibie = #{leibie} 
+      </if>
+    
+    order by t3.createTime desc
+  </select>
+ <update id="updateHelp" parameterType="com.yuanneng.book.manage.wenzhang.entity.WenzhangBean">
+      update t_help
+      set
+        answer = #{answer}
+        ,status=1
+      where
+        id=#{id}
+      
+    </update>
+   <update id="updateArticle" parameterType="com.yuanneng.book.manage.wenzhang.entity.WenzhangBean">
+      update t_article
+      set
+        answer = #{answer}
+        ,status=1
+      where
+        id=#{id}
+      
+    </update>
+</mapper>

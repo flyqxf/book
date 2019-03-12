@@ -1,0 +1,4 @@
+<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib uri="/WEB-INF/gsp-tags" prefix="gsp"%>
+<%@ page import="com.yuanneng.book.common.utils.Constant" %>
+<%@ page import="com.yuanneng.book.common.utils.CodeConstant" %>

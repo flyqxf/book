@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.manage.user.dao.IUserDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getUsers"  resultType="com.yuanneng.book.manage.user.entity.UserBean">
+    SELECT
+        t1.userId as userId
+        ,t1.userName as userName
+        ,t1.mobile as mobile
+        ,t1.province as province
+        ,t1.city as city
+        ,t1.id_zhifubao as id_zhifubao
+        ,t1.id_weixin as id_weixin
+        ,t1.bank as bank 
+        ,t1.bank_card_number as bank_card_number
+        ,t1.receivables_flg as receivables_flg
+        ,t1.register_time as register_time
+        ,t1.status as status
+        ,t1.mail as mail
+        ,t1.code as code
+        ,t1.tuijianRenshu as tuijianRenshu
+        ,t1.register_code as register_code
+        ,t1.bank_card_name as bank_card_name
+        ,t1.user_flg
+        <!-- 
+        ,(case user_flg when 0 then '0'
+           else
+            case exists(select 1 from t_achievement t2 where t2.userId=t1.userId)
+           when true then '2'
+           else '1'
+           end
+           end
+       ) as user_flg
+        -->
+    FROM
+      t_user t1
+    where
+        del_flg != 1
+    <if test="userId != null and userId != ''">
+        and t1.userId = #{userId}
+    </if>
+    <if test="userName != null and userName != ''">
+        and t1.userName like CONCAT('%', #{userName},'%')
+    </if>
+    <if test="mobile != null and mobile != ''">
+        and t1.mobile like CONCAT('%', #{mobile},'%')
+    </if>
+    <if test="province != null and province != ''">
+        and t1.province = #{province}
+    </if>
+    <if test="city != null and city != ''">
+        and t1.city = #{city}
+    </if>
+    <if test="receivables_flg != null and receivables_flg != ''">
+        and t1.receivables_flg = #{receivables_flg}
+    </if>
+    <if test="id_zhifubao != null and id_zhifubao != ''">
+        and t1.id_zhifubao like CONCAT('%', #{id_zhifubao},'%')
+    </if>
+    <if test="id_weixin != null and id_weixin != ''">
+        and t1.id_weixin like CONCAT('%', #{id_weixin},'%')
+    </if>
+    <if test="bank_card_number != null and bank_card_number != ''">
+        and t1.bank_card_number like CONCAT('%', #{bank_card_number},'%')
+    </if>
+    <if test="bank_card_number != null and bank_card_number != ''">
+        and t1.bank_card_number like CONCAT('%', #{bank_card_number},'%')
+    </if>
+    <if test="receivables_flg == null or receivables_flg == ''">
+    <if test="zhanghao != null and zhanghao != ''">
+        and (
+            case receivables_flg 
+            when 1 then t1.id_zhifubao like CONCAT('%', #{zhanghao},'%')
+            when 2 then id_weixin like CONCAT('%', #{zhanghao},'%')
+            when 3 then t1.bank_card_number like CONCAT('%', #{zhanghao},'%')
+            end
+            )
+    </if>
+    </if>
+    <if test="register_time_from != null and register_time_from != ''" >
+        <![CDATA[
+            and
+        
+             DATE_FORMAT(t1.register_time,'%Y-%m-%d') >= #{register_time_from}
+        ]]>
+    </if>
+    <if test="register_time_to != null and register_time_to != ''">
+        
+          <![CDATA[
+            and
+                DATE_FORMAT(t1.register_time,'%Y-%m-%d') <= #{register_time_to}
+          ]]>
+    </if>
+    <if test="status != null and status != ''">
+        and t1.status = #{status}
+    </if>
+    <if test="user_flg==1">
+    <!-- 
+        and not exists(select 1 from t_achievement t2 where t2.userId=t1.userId)
+         -->
+         and t1.user_flg = 1
+    </if>
+    <if test="user_flg==2">
+     <!--
+        and exists(select 1 from t_achievement t2 where t2.userId=t1.userId)
+        -->
+        and t1.user_flg = 2
+    </if>
+  </select>
+  
+  <select id="getTuijianUsers"  resultType="com.yuanneng.book.manage.user.entity.UserXiaoshouBean">
+    SELECT
+        t1.userId as userId
+        ,t1.userName as userName
+        ,t1.mobile as mobile
+        ,t1.province as province
+        ,t1.city as city
+        ,t1.id_zhifubao as id_zhifubao
+        ,t1.id_weixin as id_weixin
+        ,t1.bank as bank 
+        ,t1.bank_card_number as bank_card_number
+        ,t1.receivables_flg as receivables_flg
+        ,t1.register_time as register_time
+        ,t1.status as status
+        ,t1.mail as mail
+        ,t1.code as code
+        ,t1.register_code as register_code
+        ,t1.bank_card_name as bank_card_name
+        ,t2.pay_status
+        ,t2.pay
+    FROM
+      t_user t1 join t_achievement t2 on t1.userId = t2.registerUserId
+    where
+        t1.del_flg != 1
+    and 
+        t2.userId = #{userId}
+    <if test="achUserId != null and achUserId != ''">
+        and t2.userId = #{achUserId}
+    </if>
+    <if test="userName != null and userName != ''">
+        and t1.userName like CONCAT('%', #{userName},'%')
+    </if>
+    
+    <if test="province != null and province != ''">
+        and t1.province = #{province}
+    </if>
+    <if test="city != null and city != ''">
+        and t1.city = #{city}
+    </if>
+
+    <if test="register_time_from != null and register_time_from != ''" >
+        <![CDATA[
+            and
+        
+             DATE_FORMAT(t1.register_time,'%Y-%m-%d') >= #{register_time_from}
+        ]]>
+    </if>
+    <if test="register_time_to != null and register_time_to != ''">
+        
+          <![CDATA[
+            and
+                DATE_FORMAT(t1.register_time,'%Y-%m-%d') <= #{register_time_to}
+          ]]>
+    </if>
+    <if test="pay_status != null and pay_status != ''">
+        and t2.pay_status = #{pay_status}
+    </if>
+   <if test="flg != null and flg != ''">
+        and t2.flg = #{flg}
+    </if>
+  </select>
+ 
+  
+  <update id="lockUser" parameterType="com.yuanneng.book.manage.user.entity.UserBean">
+      update
+          t_user
+      set
+        status = #{status}
+       
+      where
+        userId = #{userId}
+    </update>
+    <update id="resetPwd" parameterType="com.yuanneng.book.manage.user.entity.UserBean">
+      update
+          t_user
+      set
+        userPassword = #{userPassword}
+       
+      where
+        userId = #{userId}
+    </update>
+    
+    
+    <update id="updatePay_zhijie" parameterType="com.yuanneng.book.manage.pay.entity.PayBean">
+      update
+          t_manage_pay_zhijie
+      set
+        paid = #{paid}
+        ,unpaid = #{unpaid}
+        ,payName = #{payName}
+        ,paydate = #{paydate}
+       
+      where
+        id = #{id}
+    </update>
+    <update id="updatePay_jianjie" parameterType="com.yuanneng.book.manage.pay.entity.PayBean">
+      update
+          t_manage_pay_jianjie
+      set
+        paid = #{paid}
+        ,unpaid = #{unpaid}
+        ,payName = #{payName}
+        ,paydate = #{paydate}
+       
+      where
+        id = #{id}
+    </update>
+    <insert id="insertPayHistory" parameterType="com.yuanneng.book.manage.pay.entity.PayBean">
+      INSERT INTO t_manage_pay_history(
+        id
+        ,payId
+        ,userId
+        ,pay
+        ,payName
+        ,paydate
+        
+      )
+      values(
+        #{id}
+        ,#{payId}
+        ,#{userId}
+        ,#{pay}
+        ,#{payName}
+        ,#{paydate}
+      
+      )
+    </insert>
+    <update id="updateAchStatus" parameterType="com.yuanneng.book.manage.pay.entity.PayBean">
+      update
+          t_achievement t1
+      set
+        t1.pay_status = 1
+       
+      where
+        t1.userId = #{userId}
+       and
+        t1.flg = #{flg}
+       and
+         exists (
+            select 1 from t_user t2
+             where
+             case flg when 1 then
+              t1.registerUserId=t2.userId
+              when 2 then t1.registerUserId_jianjie=t2.userId
+            end
+              and
+                qishu = #{date}
+        )
+    </update>
+    <select id="getUser" resultType="com.yuanneng.book.manage.user.entity.UserBean">
+    SELECT
+        t1.userId as userId
+        ,t1.userPassword as userPassword
+        ,t1.code as code
+    FROM
+      t_user t1
+    where
+         t1.userId = #{userId}
+    
+  </select>
+  <select id="getAdminUserCnt" >
+    SELECT
+        count(1)
+    FROM
+      t_manage_user t1
+    where
+         t1.userId = #{userId}
+    
+  </select>
+  <update id="updateUser_flg" >
+      update
+          t_user t1
+      set
+        t1.user_flg = #{user_flg}
+       
+      where
+        t1.userId = #{userId}
+    </update>
+    <insert id="addAdminUser" >
+      INSERT INTO t_manage_user(
+        userId
+        ,userPassword
+        
+      )
+      values(
+        #{userId}
+        ,#{userPassword}
+      
+      )
+    </insert>
+    
+    <update id="delAdminUser" >
+      delete from
+          t_manage_user
+       
+      where
+        userId = #{userId}
+    </update>
+</mapper>

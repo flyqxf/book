@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 登录action -->
+    <package name="successCase" extends="gsp-struts-default" namespace="/successCase">
+        <action name="successCaseList" class="com.yuanneng.book.successCase.action.SuccessCaseAction" >
+            <result name="success">
+                <param name="location">/pages/successCase.jsp</param>
+            </result>
+        </action>
+        <action name="successCaseListDetail" class="com.yuanneng.book.successCase.action.SuccessCaseDetailAction" >
+            <result name="success">
+                <param name="location">/pages/successCaseDetail.jsp</param>
+            </result>
+        </action>
+        <action name="pageLinks" class="com.yuanneng.book.successCase.action.SuccessCasePageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/successCase.jsp</param>
+            </result>
+        </action>
+        <action name="successCaseListTourist" class="com.yuanneng.book.successCase.action.SuccessCaseAction" >
+            <result name="success">
+                <param name="location">/pages/successCaseTourist.jsp</param>
+            </result>
+        </action>
+        <action name="successCaseListDetailTourist" class="com.yuanneng.book.successCase.action.SuccessCaseDetailAction" >
+            <result name="success">
+                <param name="location">/pages/successCaseDetailTourist.jsp</param>
+            </result>
+        </action>
+        <action name="pageLinksTourist" class="com.yuanneng.book.successCase.action.SuccessCasePageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/successCaseTourist.jsp</param>
+            </result>
+        </action>
+        
+    </package>
+       <!-- 异步请求 -->
+  
+</struts>

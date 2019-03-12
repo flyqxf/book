@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <package name="jiaoxue" extends="gsp-struts-default" namespace="/jiaoxue">
+        <action name="jiaoxue" class="com.yuanneng.book.manage.jiaoxue.action.JiaoxueAction" >
+            <result name="success">
+                <param name="location">/pages/admin/jiaoxueneirong.jsp</param>
+            </result>
+        </action>
+        <action name="updateJaoxue" class="com.yuanneng.book.manage.jiaoxue.action.UpdateJiaoxueAction" >
+            <result name="success">
+                <param name="location">/pages/admin/jiaoxueneirong.jsp</param>
+            </result>
+        </action>
+        
+    </package>
+    
+</struts>

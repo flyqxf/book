@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+  <!-- sysmanage的ACTION -->
+  <package name="manageLogin" extends="gsp-struts-default" namespace="/manageLogin">
+
+    <!-- 用户登录ACTION -->
+    <action name="adminLogin" class="com.yuanneng.book.manage.login.action.AdminLoginAction">
+    <result name="success" type="redirectAction">
+                <param name="actionName">../index/indexAction.action</param>
+            </result>
+      
+      <result name="error">
+        <param name="location">/pages/admin/adminlogin.jsp</param>
+      </result>
+      <result name="input">
+        <param name="location">/pages/admin/adminlogin.jsp</param>
+      </result>
+    </action>
+    <action name="updatePwd" class="com.yuanneng.book.manage.login.action.AdminUpdatePwdAction">
+        <result name="success">
+           <param name="location">/pages/admin/updatePwd.jsp</param>
+        </result>
+    </action>
+    <action name="updatePwdConfirm" class="com.yuanneng.book.manage.login.action.AdminUpdatePwdConfirmAction">
+        <result name="success">
+           <param name="location">/pages/admin/updatePwd.jsp</param>
+        </result>
+    </action>
+    </package>
+</struts>

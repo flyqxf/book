@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.manage.index.dao.IIndexDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getUsers"  resultType="com.yuanneng.book.manage.index.entity.IndexBean">
+    SELECT
+       count(1) as personSummary,
+       sum(money) as income
+    FROM
+      t_user
+    where
+        del_flg != 1
+  </select>
+  <select id="getSaleSum"  resultType="string">
+    SELECT
+       distinct t1.userId
+    FROM
+      t_user t1 join t_achievement t2
+    on
+      t1.userId = t2.userId
+    where
+        t1.del_flg != 1
+  </select>
+  <select id="getDistribution"  resultType="string">
+    SELECT
+       sum(pay)
+    FROM
+      t_achievement
+    where
+        pay_status = 1
+  </select>
+  <select id="getNotDistribution"  resultType="string">
+    SELECT
+       sum(pay)
+    FROM
+      t_achievement
+    where
+        pay_status = 0
+  </select>
+  <select id="getUsrs"  resultType="com.yuanneng.book.manage.index.entity.IndexDetailBean">
+    SELECT
+       count(1) as cnt,
+       date_format(register_time,'%Y-%m') as registeTime
+    FROM
+      t_user
+    where
+        date_format(register_time,'%Y') > date_format(DATE_SUB(CURDATE(), INTERVAL 2 YEAR),'%Y')
+    group by
+        registeTime
+  </select>
+</mapper>

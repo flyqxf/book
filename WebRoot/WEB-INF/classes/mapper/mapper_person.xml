@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.prerson.dao.IPersonDao">
+   <!-- ************************用户sql******************************* -->
+   <select id="getPersion"  parameterType="string"  resultType="com.yuanneng.book.prerson.entity.PersonBean">
+    SELECT
+        userId
+        ,userName
+        ,userPassword
+        ,mail
+        ,mobile
+        ,code
+        ,register_code
+        ,id_zhifubao
+        ,id_weixin
+        ,bank
+        ,bank_card_number
+        ,bank_card_name
+        ,money
+        ,receivables_flg
+        ,user_flg
+        ,tuijianRenshu
+        ,orderId
+        ,status
+        ,del_flg
+        ,register_time
+        ,updateTime
+    FROM
+      t_user
+    where
+        userId=#{userId}
+  </select>
+  
+  <update id="updatePersion" parameterType="com.yuanneng.book.prerson.entity.PersonBean">
+      update
+          t_user
+      set
+        userName = #{userName}
+        ,mail=#{mail}
+        ,id_zhifubao=#{id_zhifubao}
+        ,id_weixin=#{id_weixin}
+        ,bank=#{bank}
+        ,bank_card_number=#{bank_card_number}
+        ,bank_card_name=#{bank_card_name}
+      where
+        userId = #{userId}
+    </update>
+    
+     <select id="getAchievement"  parameterType="string"  resultType="com.yuanneng.book.prerson.entity.AchievementBean">
+    SELECT
+        t1.id as id
+        ,t1.userId as userId
+        ,t1.registerUserId as registerUserId
+        ,t1.pay_status as pay_status
+        ,t1.pay as pay
+        ,t1.flg as flg
+        ,t2.userName as userName
+        ,t2.province as province
+        ,t2.city as city
+        ,date_format(t2.register_time, '%Y-%m-%d') AS register_time
+
+    FROM
+      t_achievement t1 join t_user t2 on t1.registerUserId=t2.userId
+    where
+        t1.userId=#{userId}
+    and
+        t2.del_flg=0
+    order by t2.register_time DESC
+  </select>
+  <select id="getAchievementSummary"  parameterType="string"  resultType="com.yuanneng.book.prerson.entity.AchievementSummaryListBean">
+    SELECT
+        count(1) as personSum,
+        sum(pay) as moneySum,
+        pay_status as pay_status,
+        flg as flg
+        
+    FROM
+      t_achievement
+    where
+        userId=#{userId}
+    group by pay_status,flg
+    
+  </select>
+  <select id="getAchievements"  parameterType="com.yuanneng.book.prerson.entity.AchievementBean"  resultType="com.yuanneng.book.prerson.entity.AchievementBean">
+    SELECT
+        t1.id as id
+        ,t1.userId as userId
+        ,t1.registerUserId as registerUserId
+        ,t1.pay_status as pay_status
+        ,t1.pay as pay
+        ,t1.flg as flg
+        ,t2.userName as userName
+        ,t2.province as province
+        ,t2.city as city
+        ,date_format(t2.register_time, '%Y-%m-%d') AS register_time
+
+    FROM
+      t_achievement t1 join t_user t2 on t1.registerUserId=t2.userId
+    where
+        t1.userId=#{userId}
+    and
+        t2.del_flg=0
+        
+    <if test="userName != null and userName != ''">
+        and
+            t2.userName like  CONCAT('%',#{userName},'%')
+    </if>
+    <if test="startDate != null and startDate != ''" >
+        <![CDATA[
+            and
+        
+             DATE_FORMAT(t2.register_time,'%Y-%m-%d') >= #{startDate}
+        ]]>
+    </if>
+    <if test="endDate != null and endDate != ''">
+        
+          <![CDATA[
+            and
+                DATE_FORMAT(t2.register_time,'%Y-%m-%d') <= #{endDate}
+          ]]>
+    </if>
+    <if test="pay_status != '-1'">
+        and
+            t1.pay_status=#{pay_status}
+    </if>
+        
+    order by t2.register_time DESC
+  </select>
+  <select id="getCount"  resultType="int">
+  <!-- 
+    SELECT
+        count(1) AS count
+        ,date_format(t2.register_time, '%Y-%m') AS year
+        ,t1.flg
+        
+    FROM
+      t_achievement t1 join t_user t2 on t1.registerUserId=t2.userId
+    where
+        t1.userId=#{userId}
+    and
+        t2.del_flg=0
+        
+    group by year,t1.flg
+        
+    order by year
+     -->
+     SELECT
+        count(1) AS count
+        
+    FROM
+      t_achievement t1 join t_user t2 on t1.registerUserId=t2.userId
+    where
+        t1.userId=#{userId}
+    and
+        t2.del_flg=0
+    and
+        date_format(t2.register_time, '%Y-%m') =#{year}
+    and
+        t1.flg=#{flg}
+  </select>
+  <insert id="insertHistory" parameterType="com.yuanneng.book.prerson.entity.PersonBean">
+        INSERT INTO ${schema}.t_user_edit_history (
+            id
+            ,userId
+            ,userName
+            ,mail
+            ,id_zhifubao
+            ,id_weixin
+            ,bank
+            ,bank_card_number
+            ,bank_card_name
+            ,updateTime
+         ) VALUES (
+            #{id}
+            ,#{userId}
+            ,#{userName}
+            ,#{mail}
+            ,#{id_zhifubao}
+            ,#{id_weixin}
+            ,#{bank}
+            ,#{bank_card_number}
+            ,#{bank_card_name}
+            ,SYSDATE()
+        )
+    </insert>
+    <update id="updateUserPwd" parameterType="com.yuanneng.book.sysmanage.entity.UserBean">
+      update
+          t_user
+      set
+        userPassword = #{userPassword}
+        ,updateTime = SYSDATE()
+      where
+        userId = #{userId}
+    </update>
+</mapper>

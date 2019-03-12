@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 登录action -->
+    <package name="successManage" extends="gsp-struts-default" namespace="/successManage">
+        <action name="successManager" class="com.yuanneng.book.manage.success.action.SuccessManagerAction" >
+            <result name="success">
+                <param name="location">/pages/admin/successManager.jsp</param>
+            </result>
+        </action>
+        <action name="updateSuccess" class="com.yuanneng.book.manage.success.action.UpdateSuccessAction" >
+            <result name="success">
+                <param name="location">/pages/admin/successManager.jsp</param>
+            </result>
+        </action>
+        
+    </package>
+       <!-- 异步请求 -->
+  
+</struts>

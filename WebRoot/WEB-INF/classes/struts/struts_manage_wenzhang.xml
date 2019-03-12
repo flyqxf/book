@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <package name="wenzhang" extends="gsp-struts-default" namespace="/wenzhang">
+        <action name="wenzhang" class="com.yuanneng.book.manage.wenzhang.action.WenzhangAction" >
+            <result name="success">
+                <param name="location">/pages/admin/wenzhang.jsp</param>
+            </result>
+        </action>
+        <action name="tab1Wenzhang" class="com.yuanneng.book.manage.wenzhang.action.Tab1WenzhangAction" >
+            <result name="success">
+                <param name="location">/pages/admin/wenzhangDetail.jsp</param>
+            </result>
+        </action>
+        <action name="tab2Wenzhang" class="com.yuanneng.book.manage.wenzhang.action.Tab2WenzhangAction" >
+            <result name="success">
+                <param name="location">/pages/admin/wenzhangList.jsp</param>
+            </result>
+        </action>
+        <action name="pageLinks" class="com.yuanneng.book.manage.wenzhang.action.WenzhangPageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/admin/wenzhangList.jsp</param>
+            </result>
+        </action>
+    </package>
+    <package name="wenzhangJ" extends="gsp-json-default" namespace="/wenzhangJ">
+    <action name="answer" class="com.yuanneng.book.manage.wenzhang.action.AnswerAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+     </action>
+     </package>
+</struts>

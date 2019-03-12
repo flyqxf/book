@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 登录action -->
+    <package name="user" extends="gsp-struts-default" namespace="/user">
+        <action name="userAction" class="com.yuanneng.book.manage.user.action.UserAction" >
+            <result name="success">
+                <param name="location">/pages/admin/userList.jsp</param>
+            </result>
+        </action>
+        
+        <action name="pageLinks" class="com.yuanneng.book.manage.user.action.UserPageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/admin/userList.jsp</param>
+            </result>
+        </action>
+        <action name="zhijieXiaoshouPageLinks" class="com.yuanneng.book.manage.user.action.ZhijiePageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/admin/gerenXiaoShouInfo.jsp</param>
+            </result>
+        </action>
+        <action name="jianjieXiaoshouPageLinks" class="com.yuanneng.book.manage.user.action.JianjiePageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/admin/gerenJianjieXiaoShouInfo.jsp</param>
+            </result>
+        </action>
+        
+        <action name="userDetail" class="com.yuanneng.book.manage.user.action.UserDetailAction" >
+            <result name="success">
+                <param name="location">/pages/admin/geren.jsp</param>
+            </result>
+        </action>
+        <action name="xiaoshouDetail" class="com.yuanneng.book.manage.user.action.UserDetailAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifu.jsp</param>
+            </result>
+        </action>
+        <action name="tab1User" class="com.yuanneng.book.manage.user.action.Tab1UserAction" >
+            <result name="success">
+                <param name="location">/pages/admin/gerenInfo.jsp</param>
+            </result>
+        </action>
+        <action name="tab2User" class="com.yuanneng.book.manage.user.action.Tab2UserAction" >
+            <result name="success">
+                <param name="location">/pages/admin/gerenXiaoShouInfo.jsp</param>
+            </result>
+        </action>
+        <action name="tab3User" class="com.yuanneng.book.manage.user.action.Tab3UserAction" >
+            <result name="success">
+                <param name="location">/pages/admin/gerenJianjieXiaoShouInfo.jsp</param>
+            </result>
+        </action>
+        <action name="zhifu" class="com.yuanneng.book.manage.user.action.ZhifuAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifu_zhijie.jsp</param>
+            </result>
+            <result name="success1">
+                <param name="location">/pages/admin/zhifu_jianjie.jsp</param>
+            </result>
+            <result name="success2">
+                <!-- <param name="location">/pages/admin/zhifu_summary.jsp</param> -->
+                <param name="location">/pages/admin/zhifu_zhijie_pay.jsp</param>
+            </result>
+        </action>
+        <action name="exportExcel" class="com.yuanneng.book.manage.user.action.UserExportExcelAction" method="execute">
+            <result name="success" type="stream">
+                <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        <action name="payZhijie" class="com.yuanneng.book.manage.user.action.PayZhijieAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifu_zhijie.jsp</param>
+            </result>
+        </action>
+        <action name="payJianjie" class="com.yuanneng.book.manage.user.action.PayJianjieAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifu_jianjie.jsp</param>
+            </result>
+        </action>
+        <action name="payAll" class="com.yuanneng.book.manage.user.action.PayAllAction" >
+            <result name="success">
+                <param name="location">/pages/admin/zhifu_summary.jsp</param>
+            </result>
+        </action>
+        
+    </package>
+    <package name="userJ" extends="gsp-json-default" namespace="/userJ">
+    <action name="lock" class="com.yuanneng.book.manage.user.action.UserLockAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+        <action name="userPwdReset" class="com.yuanneng.book.manage.user.action.UserPwdResetAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+        <action name="addAdminRole" class="com.yuanneng.book.manage.user.action.AddAdminRoleAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+        <action name="delAdminRole" class="com.yuanneng.book.manage.user.action.DelAdminRoleAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+   </package> 
+</struts>

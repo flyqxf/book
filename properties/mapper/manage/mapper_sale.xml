@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.manage.sale.dao.ISaleDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getSaleBean"  resultType="com.yuanneng.book.manage.sale.entity.SaleBean">
+    SELECT
+
+        t1.userId as userId
+        ,t1.userName as userName
+        ,date_format(t3.register_time,'%Y-%m-%d') as register_time
+        ,t2.pay as pay
+        ,t2.flg as flg
+        ,date_format(t3.register_time,'%Y%m') as yearMonth
+         
+       
+    FROM
+      t_user t1 join t_achievement t2 on t1.userId = t2.userId
+      join t_user t3 on t3.userId = t2.registerUserId
+    where
+        t1.del_flg != 1
+    <if test="userId != null and userId != ''">
+        and t1.userId like CONCAT('%', #{userId},'%')
+    </if>
+    <if test="userName != null and userName != ''">
+        and t1.userName like CONCAT('%', #{userName},'%')
+    </if>
+  </select>
+  
+</mapper>

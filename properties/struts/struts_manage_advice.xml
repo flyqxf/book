@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 登录action -->
+    <package name="adviceManage" extends="gsp-struts-default" namespace="/adviceManage">
+        <action name="adviceManager" class="com.yuanneng.book.manage.advice.action.AdviceManagerAction" >
+            <result name="success">
+                <param name="location">/pages/admin/adviceManager.jsp</param>
+            </result>
+        </action>
+        <action name="updateAdvice" class="com.yuanneng.book.manage.advice.action.UpdateAdviceAction" >
+            <result name="success">
+                <param name="location">/pages/admin/adviceManager.jsp</param>
+            </result>
+        </action>
+        
+    </package>
+       <!-- 异步请求 -->
+  
+</struts>

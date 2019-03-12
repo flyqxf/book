@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.sysmanage.dao.IUserDisplayDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getUserBeans" parameterType="_userBean" resultType="_userBean">
+    SELECT
+      user.userId as userId
+,user.userName as userName
+,user.userPassword as userPassword
+,user.mail as mail
+,user.mobile as mobile
+,user.code as code
+,user.register_code as register_code
+,user.id_zhifubao as id_zhifubao
+,user.id_weixin as id_weixin
+,user.bank as bank
+,user.bank_card_number as bank_card_number
+,user.bank_card_name as bank_card_name
+,user.money as money
+,user.user_flg as user_flg
+,user.status as status
+,user.del_flg as del_flg
+,user.register_time as register_time
+,user.updateTime as updateTime
+
+    FROM
+      ${schema}.t_user user
+    
+    WHERE
+      user.del_flg = 0
+    AND
+      user.status=0
+      
+    AND
+      user.userId = #{userId}
+  </select>
+   
+   <!-- 添加登录日志 -->
+  <insert id="addUserLog" parameterType="com.yuanneng.book.sysmanage.entity.UserEventLogBean" useGeneratedKeys="true" keyProperty="logId">
+    INSERT INTO ${schema}.t_user_event_log(
+        logId
+        ,userId
+        ,userName
+        ,loginIP
+        ,loginSource
+        ,count
+        ,fashion
+        ,description
+        ,start_Date
+        ,end_Date
+    ) VALUES(
+        #{logId}
+        ,#{userId}
+        ,#{userName}
+        ,#{loginIP}
+        ,#{loginSource}
+        ,#{count}
+        ,#{fashion}
+        ,#{description}
+        ,#{start_Date}
+        ,#{end_Date}
+    )
+  </insert>
+   <!-- 查询登录日志 -->
+    <select id="selectUserLog" parameterType="com.yuanneng.book.sysmanage.entity.UserEventLogBean" resultType="com.yuanneng.book.sysmanage.entity.UserEventLogBean">
+        SELECT
+            logId,
+            userId,
+            userName,
+            loginIP,
+            loginSource,
+            count,
+            fashion,
+            description,
+            start_Date,
+            end_Date
+        FROM
+            ${schema}.t_user_event_log
+        WHERE
+            userId = #{userId}
+        AND
+            userName = #{userName}
+        ORDER BY
+            start_Date DESC LIMIT 1
+    </select>
+    <!-- 用户表进行更新前的锁定 -->
+  <select id="selectLockUser" parameterType="_userBean" resultType="java.lang.Integer">
+    SELECT
+        COUNT(userId)
+    FROM
+        ${schema}.t_user
+    WHERE
+        userName = #{userName}
+    FOR UPDATE
+  </select>
+  
+  
+</mapper>

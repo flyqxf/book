@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.common.dao.ICommonSqlDao">
+
+    <!-- 查询页面项目管理表数据 -->
+    <select id="getCodeListRecord" resultType="com.yuanneng.book.common.entity.CodeExtendBean">
+       
+    </select>
+    
+    
+</mapper>

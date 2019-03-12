@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.manage.pay.dao.IPayDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getPayBean"  resultType="com.yuanneng.book.manage.pay.entity.PayBean">
+    SELECT
+        t1.id as id
+        ,t1.userId as userId
+        ,t2.userName as userName
+        ,t1.personSum_zhijie as personSum_zhijie
+        ,t1.personSum_jianjie as personSum_jianjie
+        ,t1.pay_zhijie as pay_zhijie
+        ,t1.paid_zhijie as paid_zhijie
+        ,t1.unpaid_zhijie as unpaid_zhijie
+        ,t1.pay_jianjie as pay_jianjie
+        ,t1.paid_jianjie as paid_jianjie
+        ,t1.unpaid_jianjie as unpaid_jianjie
+        ,t1.date as date
+      
+    FROM
+      t_manage_pay t1 join t_user t2 on t1.userId = t2.userId
+    where
+        t2.del_flg != 1
+    <if test="userId != null and userId != ''">
+        <!-- and t1.userId like CONCAT('%', #{userId},'%') -->
+        and t1.userId = #{userId}
+    </if>
+    <if test="userName != null and userName != ''">
+        and t2.userName like CONCAT('%', #{userName},'%')
+    </if>
+    order by t1.userId asc,t1.date desc
+  </select>
+  <select id="getPayBean_zhijie"  resultType="com.yuanneng.book.manage.pay.entity.PayBean">
+    SELECT
+            id
+            ,userId
+            ,personSum
+            ,pay
+            ,paid
+            ,unpaid
+            ,qishu
+            ,beginTime
+            ,endTime
+      
+    FROM
+      t_manage_pay_zhijie
+    where
+    
+        userId = #{userId}
+    <![CDATA[
+    and
+        DATE_FORMAT(beginTime,'%Y-%m-%d') <= #{date}
+    and
+    DATE_FORMAT(endTime,'%Y-%m-%d') >= #{date}
+    ]]>
+    
+    
+  </select>
+  <select id="getPayBean_jianjie"  resultType="com.yuanneng.book.manage.pay.entity.PayBean">
+    SELECT
+            id
+            ,userId
+            ,personSum
+            ,pay
+            ,paid
+            ,unpaid
+            ,qishu
+            ,beginTime
+            ,endTime
+      
+    FROM
+      t_manage_pay_jianjie
+    where
+        userId = #{userId}
+    <![CDATA[
+    and
+        DATE_FORMAT(beginTime,'%Y-%m-%d') <= #{date}
+    and
+    DATE_FORMAT(endTime,'%Y-%m-%d') >= #{date}
+    ]]>
+    
+    
+  </select>
+  
+  <select id="getPayBean_zhijie_lst"  resultType="com.yuanneng.book.manage.pay.entity.PayBean">
+    SELECT
+            t1.id as id
+            ,t1.userId as userId
+            ,t1.personSum as personSum
+            ,t1.pay as pay
+            ,t1.paid as paid
+            ,t1.unpaid as unpaid
+            ,t1.qishu as qishu
+            ,t1.beginTime as beginTime
+            ,t1.endTime as endTime
+            ,t2.userName as userName
+      
+    FROM
+      t_manage_pay_zhijie t1 left join t_user t2
+      on t1.userId = t2.userId
+    <where>
+    
+    <![CDATA[
+        DATE_FORMAT(beginTime,'%Y-%m-%d') <= #{date}
+    and
+    DATE_FORMAT(endTime,'%Y-%m-%d') >= #{date}
+    ]]>
+    <if test="userId != null and userId != ''">
+        <!-- and t1.userId like CONCAT('%', #{userId},'%') -->
+        and t1.userId = #{userId}
+    </if>
+     <if test="userName != null and userName != ''">
+        and t2.userName like CONCAT('%', #{userName},'%')
+        
+    </if>
+    </where>
+  </select>
+  <select id="getPayBean_jianjie_lst"  resultType="com.yuanneng.book.manage.pay.entity.PayBean">
+    SELECT
+            t1.id as id
+            ,t1.userId as userId
+            ,t1.personSum as personSum
+            ,t1.pay as pay
+            ,t1.paid as paid
+            ,t1.unpaid as unpaid
+            ,t1.qishu as qishu
+            ,t1.beginTime as beginTime
+            ,t1.endTime as endTime
+            ,t2.userName as userName
+      
+    FROM
+      t_manage_pay_jianjie t1 left join t_user t2
+      on t1.userId = t2.userId
+    <where>
+    <![CDATA[
+        DATE_FORMAT(beginTime,'%Y-%m-%d') <= #{date}
+    and
+    DATE_FORMAT(endTime,'%Y-%m-%d') >= #{date}
+    ]]>
+    
+    </where>
+    
+  </select>
+</mapper>

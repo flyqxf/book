@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.manage.jiaoxue.dao.IJiaoxueDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getBookBean"  resultType="com.yuanneng.book.manage.jiaoxue.entity.BookBean">
+    SELECT
+        t1.id as id
+        ,t1.chapter as chapter
+        ,t1.part as part
+        ,t1.link as link
+        ,t1.youkeFlg as chk
+        ,t1.sort as sort
+        ,CONVERT(sort,DECIMAL(20,10)) as sortD
+      
+    FROM
+      t_jiaoxue t1 
+    
+    order by sortD asc
+  </select>
+  <delete id="deleteBooks" parameterType="com.yuanneng.book.manage.jiaoxue.entity.BookBean">
+      delete from 
+          t_jiaoxue
+      
+    </delete>
+    <insert id="insert" parameterType="com.yuanneng.book.manage.jiaoxue.entity.BookBean">
+        INSERT INTO t_jiaoxue (
+            id
+            ,chapter
+            ,part
+            ,link
+            ,youkeFlg
+            ,sort
+         ) VALUES (
+            #{id}
+            ,#{chapter}
+            ,#{part}
+            ,#{link}
+           ,#{chk}
+           ,#{sort}
+        )
+    </insert>
+</mapper>

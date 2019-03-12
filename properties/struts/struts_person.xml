@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 登录action -->
+    <package name="person" extends="gsp-struts-default" namespace="/person">
+        <action name="person" class="com.yuanneng.book.prerson.action.PersonAction" >
+            <result name="success">
+                <param name="location">/pages/person.jsp</param>
+                <!-- <param name="location">/pages/jiaoxue.jsp</param> -->
+            </result>
+        </action>
+        <action name="personEdit" class="com.yuanneng.book.prerson.action.PersonEditAction" >
+            <result name="success">
+                <param name="location">/pages/personEdit.jsp</param>
+            </result>
+        </action>
+        <action name="tab1Person" class="com.yuanneng.book.prerson.action.Tab1PersonAction" >
+            <result name="success">
+                <param name="location">/pages/personInfo.jsp</param>
+            </result>
+        </action>
+        <action name="tab2Person" class="com.yuanneng.book.prerson.action.AchievementAction" >
+            <result name="success">
+                <param name="location">/pages/achievement.jsp</param>
+            </result>
+        </action>
+        <action name="tab3Person" class="com.yuanneng.book.prerson.action.CountAction" >
+            <result name="success">
+                <param name="location">/pages/count.jsp</param>
+            </result>
+        </action>
+        <action name="tab4Person" class="com.yuanneng.book.prerson.action.ShowChangePwdAction" >
+            <result name="success">
+                <param name="location">/pages/changePwd.jsp</param>
+            </result>
+        </action>
+         <action name="updateUserPwd" class="com.yuanneng.book.prerson.action.UpdateUserPwdAction">
+            <result name="success" type="dispatcher">
+                <param name="location">/pages/changePwd.jsp</param>
+            </result>
+            <result name="input" type="dispatcher">
+                <param name="location">/pages/changePwd.jsp</param>
+            </result>
+        </action>
+       
+        <action name="searchAchievement" class="com.yuanneng.book.prerson.action.SearchAchievementAction" >
+            <result name="success">
+                <param name="location">/pages/achievement.jsp</param>
+            </result>
+        </action>
+        <action name="pageLinks" class="com.yuanneng.book.prerson.action.AchievementPageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/achievement.jsp</param>
+            </result>
+        </action>
+    </package>
+    <package name="personJ" extends="gsp-json-default" namespace="/personJ">
+    <action name="personUpdate" class="com.yuanneng.book.prerson.action.PersonUpdateAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+    <action name="showCount" class="com.yuanneng.book.prerson.action.ShowCountAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">countBeans</param>
+            </result>
+    </action>
+        
+   </package> 
+</struts>

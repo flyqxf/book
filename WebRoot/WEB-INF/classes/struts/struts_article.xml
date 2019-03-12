@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+    <!-- 登录action -->
+    <package name="article" extends="gsp-struts-default" namespace="/article">
+        <action name="article" class="com.yuanneng.book.article.action.ArticleAction" >
+            <result name="success">
+                <param name="location">/pages/article.jsp</param>
+            </result>
+        </action>
+        <action name="tab2Article" class="com.yuanneng.book.article.action.Tab2ArticleAction" >
+            <result name="success">
+                <param name="location">/pages/article1.jsp</param>
+            </result>
+        </action>
+        <action name="articleAdd" class="com.yuanneng.book.article.action.ArticleAddAction" >
+            <result name="success">
+                <param name="location">/pages/article.jsp</param>
+            </result>
+        </action>
+        <action name="articlePageLinks" class="com.yuanneng.book.article.action.ArticlePageLinkAction" >
+            <result name="success">
+                <param name="location">/pages/article1.jsp</param>
+            </result>
+        </action>
+         <action name="articleDetail" class="com.yuanneng.book.article.action.ArticleDetailAction" >
+            <result name="success">
+                <param name="location">/pages/article.jsp</param>
+            </result>
+        </action>
+        
+    </package>
+        <!-- 异步请求 -->
+  <package name="articleJ" extends="gsp-json-default" namespace="/articleJ">
+    <action name="articleAdd" class="com.yuanneng.book.article.action.ArticleAddAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+    <action name="articleEdit" class="com.yuanneng.book.article.action.ArticleEditAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+        <action name="delArticle" class="com.yuanneng.book.article.action.DeleteArticleAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">resJson</param>
+            </result>
+        </action>
+        <action name="articleDetail" class="com.yuanneng.book.article.action.ArticleDetailAction" method="execute">
+            <result type="json" name="success">
+                <param name="root">articleBean</param>
+            </result>
+        </action>
+        
+        
+   </package> 
+  
+</struts>

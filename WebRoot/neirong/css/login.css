@@ -1,0 +1,355 @@
+﻿body {
+    
+	background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center 0;
+    background-attachment: fixed;
+    background: radial-gradient(farthest-side ellipse at 10% 0, #154265 20%, #7392c2);
+    background: -webkit-radial-gradient(10% 0, farthest-side ellipse, #154265 20%, #7392c2); 
+    background:-moz-radial-gradient(10% 0, farthest-side ellipse, #154265 20%, #7392c2);
+    background-attachment: fixed, fixed;
+}
+.clear{ clear:both;}
+
+.login_mod dl{ margin-top:10px; margin-bottom:5px;}
+.login_mod {
+    width: 30.01%;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+    margin-top: 140px;
+	background:rgba(000, 000, 000, 0.3) ;
+	border-radius:5px;
+	padding:2.2%;
+	
+}
+
+.login_mod form {
+    position: relative;
+}
+
+.login_logo {
+    text-align: center;
+	opacity:0.8;
+	filter:Alpha(opacity=80);
+}
+.login_logo img{ margin-bottom:20px;}
+.login_bgpic {
+	max-width:100%;
+	max-height:100%;
+	z-index:-999;    
+    margin: 0px auto;
+	position:absolute;
+	top:0px;
+	opacity:0.06;
+    filter:alpha(opacity=6);
+overflow:hidden;
+bottom:0px;
+}
+
+.login_mod input {
+    font-size: 18px;
+    background:rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    height: 40px;
+    padding-left: 10px;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.4);
+	-moz-transition:background 2s,border 1s, box-shadow 1s;
+	-ms-transition:background 2s,border 1s,box-shadow 1s;
+	-o-transition:background 2s,border 1s,box-shadow 1s;
+	transition:background 1s,border 1s,box-shadow 1s;
+}
+.login_mod input:focus{
+	background:rgba(0, 0, 0, 0.3); 
+    border:1px dashed rgba(255, 255, 255, 0.1);
+	box-shadow:0px 0 8px #000;
+	outline:none;
+	}
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: rgba(255, 255, 255, 0.4);
+}
+:focus::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: rgba(255, 255, 255, 0);
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: rgba(255, 255, 255, 0.4);
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: rgba(255, 255, 255, 0.4);
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.code{ clear:both; display:block;}
+.code input {
+    width: 100%;
+	position:relative;
+	
+}
+
+.code img {
+    padding-top: 3px;
+    padding-left: 6px;
+	position:absolute;
+	right:30px;
+}
+
+.login_button {
+	width:100%;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    text-align: center;	
+    line-height: 45px;
+    transition: background 1s;
+    -ms-transition: background 1s;
+    -moz-transition: background 1s;
+    -webkit-transition: background 1s;
+    -o-transition: background 1s;
+    border-radius: 5px;
+    height: 45px;
+	font-family:Arial, "微软雅黑", "宋体";
+    
+}
+
+.login_button a {
+    color:  rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    height: 33px;
+    display: block;
+    padding-top: 2px;
+	font-size:18px;
+}
+
+.login_button:hover {
+    background: rgba(0, 0, 0, 0.7);
+    display: block;
+	color:rgba(255, 255, 255, 0.5);
+}
+
+.login_forgetpassword a {
+    float: right;
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    font-weight: bold;
+    padding-right: 1px;
+}
+
+.login_forgetpassword a:hover {
+    color: #000;
+}
+
+.login_forgetpassword span {
+    margin: -1px 0px 0 -1px;
+    color:rgba(255,255,255,0.6);
+    position: absolute;
+}
+
+
+/*找回密码*/
+
+.no {
+    background: #F5F5F5;
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    background: #4898CB;
+    height: 50px;
+    padding-left: 7.32%;
+}
+
+header img {
+    padding-top: 16px;
+    float: left;
+}
+
+header span {
+    color: #BFDFFF;
+    font-size: 20px;
+    margin-left: 20px;
+    background: url(../images/line02.jpg) repeat-y;
+    padding-left: 20px;
+    margin-bottom: 15px;
+    float: left;
+    margin-top: 15px;
+}
+
+main {
+    width: 600px;
+    background: #FCFCFC;
+    border: 1px solid #EEEEEE;
+    height: 350px;
+    margin-top: 70px;
+    left: 50%;
+    top: 50%;
+    margin: auto;
+    margin-top: 60px;
+    padding: 20px 30px;
+    display: block;
+    font-size: 14px;
+}
+
+main h1 {
+    font: bold 1.25em Arial, "微软雅黑", "宋体";
+    color: #545454;
+    border-bottom: 1px dashed #EEEEEE;
+    line-height: 40px;
+}
+
+main input {
+    font-size: 18px;
+    color: #444;
+    height: 40px;
+    padding-left: 10px;
+    
+}
+
+article {
+    margin: 0px auto;
+    width: 400px;
+    margin-top: 60px;
+    font-size: 1.125em;
+}
+
+article input {
+    height: 25px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    width: 300px;
+}
+
+.btn_an a {
+    height: 40px;
+    background: #4898CB;
+    
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 1s ease 0s;
+}
+
+.btn_an a:hover {
+    background: #2F76A6;
+    color: #E8F2F9;
+}
+
+article p {
+    text-align: right;
+    font-size: 16px;
+    display: block;
+	padding-right:8px;
+}
+
+article p a {
+    color: #aaa;
+}
+
+article p a:hover {
+    color: #2F76A6;
+}
+
+.login_tab {
+    width: 21.96%;
+    top: 30%;
+    left: 39%;
+    position: absolute;
+}
+
+
+/*不存在页面*/
+
+.noweb {
+    width: 43.19%;
+    left: 50%;
+    top: 50%;
+    margin: auto;
+    margin-top: 7.8%;
+}
+
+
+/*登录验证*/
+
+#slider {
+  
+  width: 96%;
+  height: 40px;
+  position: relative;
+  border-radius: 2px;
+  background-color: #6BD6DC;
+  border:1px solid #4480BE;
+  overflow: hidden;
+  text-align: center;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+   box-shadow: inset 0 2px 5px #000;
+    box-shadow: 1px 1px 3px #DAF5F4, inset 0 0px 9px #249393;
+	margin-bottom:20px;
+	border-radius: 5px;
+}
+
+#slider_bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: #7AC23C;
+  z-index: 1;
+}
+
+#label {
+  width: 46px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 38px;
+  line-height: 38px;
+  border: 1px solid #cccccc;
+  background: #fff;
+  z-index: 3;
+  cursor: move;
+  color: #ff9e77;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 2px;
+}
+
+#labelTip {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 13px;
+  font-family: 'Microsoft Yahei', serif;
+  color: #787878;
+  line-height: 38px;
+  text-align: center;
+  z-index: 2;
+}
+
+/*媒体查询*/
+@media (min-width:1366px) and (max-width:1920px) {
+    .btn_an a {    
+    width: 393px;    
+}
+}
+@media (min-width:1024px) and (max-width:1366px) {
+    .btn_an a {    
+    width: 393px;    
+}
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanneng.book.manage.success.dao.ISuccessManagerDao">
+   <!-- ************************用户sql******************************* -->
+   <!-- 条件检索用户信息 -->
+  <select id="getSuccessBean"  resultType="com.yuanneng.book.manage.success.entity.SuccessManagerBean">
+    SELECT
+        id
+        ,title
+        ,link
+        ,createUser
+      ,CONVERT(id,SIGNED) as idInt
+    FROM
+      t_success_case
+    
+    order by idInt asc
+  </select>
+  <delete id="deleteSuccessBean" >
+      delete from 
+          t_success_case
+      
+    </delete>
+    <insert id="insert" parameterType="com.yuanneng.book.manage.success.entity.SuccessManagerBean">
+        INSERT INTO t_success_case (
+            id
+            ,title
+            ,link
+            ,createTime
+            ,createUser
+         ) VALUES (
+            #{id}
+            ,#{title}
+            ,#{link}
+            ,SYSDATE()
+            ,#{createUser}
+        )
+    </insert>
+</mapper>
